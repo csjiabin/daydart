@@ -1,6 +1,6 @@
 # DayDart
 
-A new Flutter package project.
+具备 Day.js 一样 API 的时间处理库.
 
 ![https://img.shields.io/github/license/csjiabin/daydart.svg](https://img.shields.io/github/license/csjiabin/daydart.svg)
 ![https://img.shields.io/github/issues/csjiabin/daydart.svg](https://img.shields.io/github/issues/csjiabin/daydart.svg)
@@ -15,6 +15,16 @@ multiple Flutter or Dart projects.
 For help getting started with Flutter, view our
 [online documentation](https://flutter.io/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+### Install
+
+在项目下运行此命令
+
+```sh
+dart pub add daydart
+# or
+flutter pub add daydart
+```
 
 ## API
 
