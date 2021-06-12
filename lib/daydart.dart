@@ -2,16 +2,27 @@ library daydart;
 
 import 'package:intl/intl.dart';
 
-class DayDart {
-  DayDart([Object? date]) {
-    Intl.defaultLocale = DayDart.locale;
-    _initDate(date);
-    print(_date);
-  }
+enum Units { y, M, D, w, h, m, s, ms }
 
+class DayUnits {
+  static List<String> year = ['years', 'year', 'y'];
+  static List<String> month = ['months', 'month', 'M'];
+  static List<String> day = ['days', 'day', 'D'];
+  static List<String> hour = ['hours', 'hour', 'h'];
+  static List<String> minute = ['minutes', 'minute', 'm'];
+  static List<String> second = ['seconds', 'second', 's'];
+  static List<String> millisecond = ['milliseconds', 'millisecond', 'ms'];
+}
+
+class DayDart {
   static String locale = 'en_US';
 
   DateTime _date = DateTime.now();
+
+  DayDart([Object? date]) {
+    Intl.defaultLocale = DayDart.locale;
+    _initDate(date);
+  }
 
   _initDate([Object? date]) {
     try {
@@ -19,7 +30,9 @@ class DayDart {
       if (date == null) return;
       int _len = date.toString().length;
       if (date is int) {
-        if (_len == 13) {
+        if (_len == 10) {
+          _date = DateTime.fromMillisecondsSinceEpoch(date * 1000);
+        } else if (_len == 13) {
           _date = DateTime.fromMillisecondsSinceEpoch(date);
         } else if (_len == 16) {
           _date = DateTime.fromMicrosecondsSinceEpoch(date);
@@ -146,61 +159,114 @@ class DayDart {
 
   ///  返回DayDart对象，并添加指定的时间。
   DayDart add(int num, String unit) {
-    if (['year', 'y'].contains(unit)) {
+    String _unit = unit.toLowerCase();
+    if (DayUnits.year.contains(_unit)) {
       year($y + num);
     }
-    if (['month', 'M'].contains(unit)) {
+    if (DayUnits.month.contains(_unit)) {
       month($M + num);
     }
 
-    if (['day', 'D'].contains(unit)) {
+    if (DayUnits.day.contains(_unit)) {
       day($D + num);
     }
-    if (['hour', 'h'].contains(unit)) {
+    if (DayUnits.hour.contains(_unit)) {
       hour($h + num);
     }
-    if (['minute', 'm'].contains(unit)) {
+    if (DayUnits.minute.contains(_unit)) {
       minute($m + num);
     }
-    if (['second', 's'].contains(unit)) {
+    if (DayUnits.second.contains(_unit)) {
       second($s + num);
     }
-    if (['millisecond', 'ms'].contains(unit)) {
+    if (DayUnits.millisecond.contains(_unit)) {
       millisecond($ms + num);
     }
-    return this;
+    return clone();
   }
 
   ///  返回DayDart对象，并减去指定的时间。
   DayDart subtract(int num, String unit) {
-    if (['year', 'y'].contains(unit)) {
+    String _unit = unit.toLowerCase();
+
+    if (DayUnits.year.contains(_unit)) {
       year($y - num);
     }
-    if (['month', 'M'].contains(unit)) {
+    if (DayUnits.month.contains(_unit)) {
       month($M - num);
     }
 
-    if (['day', 'D'].contains(unit)) {
+    if (DayUnits.day.contains(_unit)) {
       day($D - num);
     }
-    if (['hour', 'h'].contains(unit)) {
+    if (DayUnits.hour.contains(_unit)) {
       hour($h - num);
     }
-    if (['minute', 'm'].contains(unit)) {
+    if (DayUnits.minute.contains(_unit)) {
       minute($m - num);
     }
-    if (['second', 's'].contains(unit)) {
+    if (DayUnits.second.contains(_unit)) {
       second($s - num);
     }
-    if (['millisecond', 'ms'].contains(unit)) {
+    if (DayUnits.millisecond.contains(_unit)) {
       millisecond($ms - num);
     }
-    return this;
+    return clone();
   }
 
   /// 根据传入的令牌字符串获取格式化的日期。
-  /// 要对字符进行转义，请将它们括在方括号中(例如[MM])。
-  String format([String? pattern = 'yyyy-MM-dd hh:mm:ss', String? locale]) {
+  /// 要对字符进行转义，请将它们括在方括号中(例如'MM')。
+  ///      --------                   --------
+  ///      DAY                          d
+  ///      ABBR_WEEKDAY                 E
+  ///      WEEKDAY                      EEEE
+  ///      ABBR_STANDALONE_MONTH        LLL
+  ///      STANDALONE_MONTH             LLLL
+  ///      NUM_MONTH                    M
+  ///      NUM_MONTH_DAY                Md
+  ///      NUM_MONTH_WEEKDAY_DAY        MEd
+  ///      ABBR_MONTH                   MMM
+  ///      ABBR_MONTH_DAY               MMMd
+  ///      ABBR_MONTH_WEEKDAY_DAY       MMMEd
+  ///      MONTH                        MMMM
+  ///      MONTH_DAY                    MMMMd
+  ///      MONTH_WEEKDAY_DAY            MMMMEEEEd
+  ///      ABBR_QUARTER                 QQQ
+  ///      QUARTER                      QQQQ
+  ///      YEAR                         y
+  ///      YEAR_NUM_MONTH               yM
+  ///      YEAR_NUM_MONTH_DAY           yMd
+  ///      YEAR_NUM_MONTH_WEEKDAY_DAY   yMEd
+  ///      YEAR_ABBR_MONTH              yMMM
+  ///      YEAR_ABBR_MONTH_DAY          yMMMd
+  ///      YEAR_ABBR_MONTH_WEEKDAY_DAY  yMMMEd
+  ///      YEAR_MONTH                   yMMMM
+  ///      YEAR_MONTH_DAY               yMMMMd
+  ///      YEAR_MONTH_WEEKDAY_DAY       yMMMMEEEEd
+  ///      YEAR_ABBR_QUARTER            yQQQ
+  ///      YEAR_QUARTER                 yQQQQ
+  ///      HOUR24                       H
+  ///      HOUR24_MINUTE                Hm
+  ///      HOUR24_MINUTE_SECOND         Hms
+  ///      HOUR                         j
+  ///      HOUR_MINUTE                  jm
+  ///      HOUR_MINUTE_SECOND           jms
+  ///      HOUR_MINUTE_GENERIC_TZ       jmv   (not yet implemented)
+  ///      HOUR_MINUTE_TZ               jmz   (not yet implemented)
+  ///      HOUR_GENERIC_TZ              jv    (not yet implemented)
+  ///      HOUR_TZ                      jz    (not yet implemented)
+  ///      MINUTE                       m
+  ///      MINUTE_SECOND                ms
+  ///      SECOND                       s
+  /// Examples Using the US Locale:
+  ///
+  ///      Pattern                           Result
+  ///      ----------------                  -------
+  ///      DayDart().format('yMd')                -> 7/10/1996
+  ///      DayDart().format('yMMMMd','en_US')       -> July 10, 1996
+  ///      DayDart().format('jm')                  -> 5:08 PM
+  ///      DayDart().format('Hm')                 -> 17:08 // force 24 hour time
+  String format([String? pattern = 'yyyy-MM-dd HH:mm:ss', String? locale]) {
     return DateFormat(pattern, locale).format(_date);
   }
 
@@ -220,91 +286,105 @@ class DayDart {
   }
 
   /// 这指示Day对象是否与另一个提供的date-time相同。
-  bool isSame(DayDart d, [String? unit]) {
-    if (['year', 'y'].contains(unit)) {
+  bool isSame(Object date, [String unit = 'ms']) {
+    DayDart d = DayDart(date);
+    String _unit = unit.toLowerCase();
+
+    if (DayUnits.year.contains(_unit)) {
       return isSameYear(d);
     }
-    if (['month', 'M'].contains(unit)) {
+    if (DayUnits.month.contains(_unit)) {
       return isSameMonth(d);
     }
-    if (['day', 'D'].contains(unit)) {
+    if (DayUnits.day.contains(_unit)) {
       return isSameDay(d);
     }
-    if (['hour', 'h'].contains(unit)) {
+    if (DayUnits.hour.contains(_unit)) {
       return isSameHour(d);
     }
-    if (['minute', 'm'].contains(unit)) {
+    if (DayUnits.minute.contains(_unit)) {
       return isSameMinute(d);
     }
-    if (['second', 's'].contains(unit)) {
+    if (DayUnits.second.contains(_unit)) {
       return isSameSecond(d);
     }
-    if (['millisecond', 'ms'].contains(unit)) {
+    if (DayUnits.millisecond.contains(_unit)) {
       return isSameMillisecond(d);
     }
     return _date == d.$d;
   }
 
   ///  这指示Day对象是否在另一个提供的date-time之前。
-  bool isBefore(DayDart d, [String? unit]) {
-    if (['year', 'y'].contains(unit)) {
+  bool isBefore(Object date, [String unit = 'ms']) {
+    DayDart d = DayDart(date);
+    String _unit = unit.toLowerCase();
+
+    if (DayUnits.year.contains(_unit)) {
       return isBeforeYear(d);
     }
-    if (['month', 'M'].contains(unit)) {
+    if (DayUnits.month.contains(_unit)) {
       return isBeforeMonth(d);
     }
-    if (['day', 'D'].contains(unit)) {
+    if (DayUnits.day.contains(_unit)) {
       return isBeforeDay(d);
     }
-    if (['hour', 'h'].contains(unit)) {
+    if (DayUnits.hour.contains(_unit)) {
       return isBeforeHour(d);
     }
-    if (['minute', 'm'].contains(unit)) {
+    if (DayUnits.minute.contains(_unit)) {
       return isBeforeMinute(d);
     }
-    if (['second', 's'].contains(unit)) {
+    if (DayUnits.second.contains(_unit)) {
       return isBeforeSecond(d);
     }
-    if (['millisecond', 'ms'].contains(unit)) {
+    if (DayUnits.millisecond.contains(_unit)) {
       return isBeforeMillisecond(d);
     }
     return _date.isBefore(d.$d);
   }
 
   ///  这指示Day对象是否在另一个提供的date-time之后。
-  bool isAfter(DayDart d, [String? unit]) {
-    if (['year', 'y'].contains(unit)) {
+  bool isAfter(Object date, [String unit = 'ms']) {
+    DayDart d = DayDart(date);
+    String _unit = unit.toLowerCase();
+
+    if (DayUnits.year.contains(_unit)) {
       return isAfterYear(d);
     }
-    if (['month', 'M'].contains(unit)) {
+    if (DayUnits.month.contains(_unit)) {
       return isAfterMonth(d);
     }
-    if (['day', 'D'].contains(unit)) {
+    if (DayUnits.day.contains(_unit)) {
       return isAfterDay(d);
     }
-    if (['hour', 'h'].contains(unit)) {
+    if (DayUnits.hour.contains(_unit)) {
       return isAfterHour(d);
     }
-    if (['minute', 'm'].contains(unit)) {
+    if (DayUnits.minute.contains(_unit)) {
       return isAfterMinute(d);
     }
-    if (['second', 's'].contains(unit)) {
+    if (DayUnits.second.contains(_unit)) {
       return isAfterSecond(d);
     }
-    if (['millisecond', 'ms'].contains(unit)) {
+    if (DayUnits.millisecond.contains(_unit)) {
       return isAfterMillisecond(d);
     }
     return _date.isAfter(d.$d);
   }
 
   ///  相同或之前
-  bool isSameOrBefore(DayDart d, [String? unit]) {
+  bool isSameOrBefore(Object d, [String unit = 'ms']) {
     return isSame(d, unit) || isBefore(d, unit);
   }
 
-//  相同或之后
-  bool isSameOrAfter(DayDart d, [String? unit]) {
+  ///  相同或之后
+  bool isSameOrAfter(Object d, [String unit = 'ms']) {
     return isSame(d, unit) || isAfter(d, unit);
+  }
+
+  ///之间
+  bool isBetween(Object start, Object end, [String unit = 'ms']) {
+    return isBefore(start, unit) && isAfter(end, unit);
   }
 
   /// 相同 start
@@ -409,8 +489,10 @@ class DayDart {
   /// 返回 ISO8601 格式的字符串
   String toISOString() => _date.toIso8601String();
 
-  List<int> toArray() => [$y, $M, $D, $h, $m, $s, $ms];
+  /// 转List
+  List<int> toList() => [$y, $M, $D, $h, $m, $s, $ms];
 
+  /// 转Map
   Map<String, int> toMap() => {
         'years': $y,
         'months': $M,
