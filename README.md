@@ -230,27 +230,27 @@ DayDart().millisecond(12)
 DayDart 支持这样的方法链接:
 
 ```dart
-DayDart('2019-01-25')..add(1, 'day')..subtract(1, 'year')..year(2009)..toString()
+DayDart('2019-01-25')..add(1, DayUnits.D)..subtract(1, DayUnits.y)..year(2009)..toString()
 ```
 
 所有可用单位列表
 
-| 单位        | 缩写 | 描述        |
-| ----------- | ---- | ----------- |
-| day         | D    | 天(1 到 31) |
-| month       | M    | 月份(1-12)  |
-| year        | y    | 年          |
-| hour        | h    | 小时        |
-| minute      | m    | 分钟        |
-| second      | s    | 秒          |
-| millisecond | ms   | 毫秒        |
+| 单位 | 描述        |
+| ---- | ----------- |
+| D    | 天(1 到 31) |
+| M    | 月份(1-12)  |
+| y    | 年          |
+| h    | 小时        |
+| m    | 分钟        |
+| s    | 秒          |
+| ms   | 毫秒        |
 
 #### 增加
 
 返回一个克隆的 `DayDart` 对象，并添加指定的时间。
 
 ```dart
-DayDart().add(7, 'day')
+DayDart().add(7, DayUnits.D)
 ```
 
 单位不区分大小写，支持复数和缩写形式。
@@ -260,7 +260,7 @@ DayDart().add(7, 'day')
 返回克隆的`DayDart`对象，并减去指定的时间。
 
 ```dart
-DayDart().subtract(7, 'day')
+DayDart().subtract(7, DayUnits.D)
 ```
 
 单位不区分大小写，支持复数和缩写形式。
@@ -269,15 +269,15 @@ DayDart().subtract(7, 'day')
 
 所有可用单位列表
 
-| 单位        | 缩写 | 描述 |
-| ----------- | ---- | ---- |
-| day         | D    | 天   |
-| month       | M    | 月份 |
-| year        | y    | 年   |
-| hour        | h    | 小时 |
-| minute      | m    | 分钟 |
-| second      | s    | 秒   |
-| millisecond | ms   | 毫秒 |
+| 缩写 | 描述 |
+| ---- | ---- |
+| D    | 天   |
+| M    | 月份 |
+| y    | 年   |
+| h    | 小时 |
+| m    | 分钟 |
+| s    | 秒   |
+| ms   | 毫秒 |
 
 #### 是否之前
 
@@ -290,7 +290,7 @@ DayDart().isBefore(DayDart('2011-01-01')) // default milliseconds
 如果希望将粒度限制为单位而不是毫秒，则将其作为第二个参数传递。
 
 ```dart
-DayDart().isBefore('2011-01-01', 'year')
+DayDart().isBefore('2011-01-01', DayUnits.y)
 ```
 
 #### 是否相同
@@ -304,7 +304,7 @@ DayDart().isSame(DayDart('2011-01-01')) // default milliseconds
 如果希望将粒度限制为单位而不是毫秒，则将其作为第二个参数传递。
 
 ```dart
-DayDart().isSame('2011-01-01', 'year')
+DayDart().isSame('2011-01-01', DayUnits.y)
 ```
 
 单位不区分大小写，支持复数和缩写形式。
@@ -320,7 +320,7 @@ DayDart().isAfter(DayDart('2011-01-01')) // default milliseconds
 如果希望将粒度限制为单位而不是毫秒，则将其作为第二个参数传递。
 
 ```dart
-DayDart().isAfter('2011-01-01', 'year')
+DayDart().isAfter('2011-01-01', DayUnits.y)
 ```
 
 单位不区分大小写，支持复数和缩写形式。
@@ -336,7 +336,7 @@ DayDart().isSameOrBefore(DayDart('2011-01-01')) // default milliseconds
 如果希望将粒度限制为单位而不是毫秒，则将其作为第二个参数传递。
 
 ```dart
-DayDart().isSameOrBefore('2011-01-01', 'year')
+DayDart().isSameOrBefore('2011-01-01', DayUnits.y)
 ```
 
 单位不区分大小写，支持复数和缩写形式。
@@ -352,7 +352,7 @@ DayDart().isSameOrAfter(DayDart('2011-01-01')) // default milliseconds
 如果希望将粒度限制为单位而不是毫秒，则将其作为第二个参数传递。
 
 ```dart
-DayDart().isSameOrAfter('2011-01-01', 'year')
+DayDart().isSameOrAfter('2011-01-01', DayUnits.y)
 ```
 
 单位不区分大小写，支持复数和缩写形式。
@@ -368,7 +368,7 @@ DayDart('2010-10-20').isBetween('2010-10-19', DayDart('2010-10-25'))// default m
 如果希望将粒度限制为单位而不是毫秒，则将其作为第三个参数传递。
 
 ```dart
-DayDart().isBetween('2010-10-19', '2010-10-25', 'year')
+DayDart().isBetween('2010-10-19', '2010-10-25', DayUnits.y)
 ```
 
 单位不区分大小写，支持复数和缩写形式。
@@ -378,8 +378,8 @@ DayDart().isBetween('2010-10-19', '2010-10-25', 'year')
 这指示变量是否为 `DayDart` 对象。
 
 ```dart
-DayDart.isDayjs(DayDart()) // true
-DayDart.isDayjs(DateTime.now()) // false
+DayDart.isDayDart(DayDart()) // true
+DayDart.isDayDart(DateTime.now()) // false
 ```
 
 也可以使用 `is` 操作符:

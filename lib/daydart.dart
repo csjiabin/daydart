@@ -2,17 +2,7 @@ library daydart;
 
 import 'package:intl/intl.dart';
 
-enum Units { y, M, D, w, h, m, s, ms }
-
-class DayUnits {
-  static List<String> year = ['years', 'year', 'y'];
-  static List<String> month = ['months', 'month', 'M'];
-  static List<String> day = ['days', 'day', 'D'];
-  static List<String> hour = ['hours', 'hour', 'h'];
-  static List<String> minute = ['minutes', 'minute', 'm'];
-  static List<String> second = ['seconds', 'second', 's'];
-  static List<String> millisecond = ['milliseconds', 'millisecond', 'ms'];
-}
+enum DayUnits { y, M, D, w, h, m, s, ms }
 
 class DayDart {
   static String locale = 'en_US';
@@ -158,58 +148,57 @@ class DayDart {
   }
 
   ///  返回DayDart对象，并添加指定的时间。
-  DayDart add(int num, String unit) {
-    String _unit = unit.toLowerCase();
-    if (DayUnits.year.contains(_unit)) {
-      year($y + num);
-    }
-    if (DayUnits.month.contains(_unit)) {
-      month($M + num);
-    }
-
-    if (DayUnits.day.contains(_unit)) {
-      day($D + num);
-    }
-    if (DayUnits.hour.contains(_unit)) {
-      hour($h + num);
-    }
-    if (DayUnits.minute.contains(_unit)) {
-      minute($m + num);
-    }
-    if (DayUnits.second.contains(_unit)) {
-      second($s + num);
-    }
-    if (DayUnits.millisecond.contains(_unit)) {
-      millisecond($ms + num);
+  DayDart add(int num, DayUnits unit) {
+    switch (unit) {
+      case DayUnits.y:
+        year($y + num);
+        break;
+      case DayUnits.M:
+        month($M + num);
+        break;
+      case DayUnits.D:
+        day($D + num);
+        break;
+      case DayUnits.h:
+        hour($h + num);
+        break;
+      case DayUnits.m:
+        minute($m + num);
+        break;
+      case DayUnits.s:
+        second($s + num);
+        break;
+      case DayUnits.ms:
+        millisecond($ms + num);
+        break;
     }
     return clone();
   }
 
   ///  返回DayDart对象，并减去指定的时间。
-  DayDart subtract(int num, String unit) {
-    String _unit = unit.toLowerCase();
-
-    if (DayUnits.year.contains(_unit)) {
-      year($y - num);
-    }
-    if (DayUnits.month.contains(_unit)) {
-      month($M - num);
-    }
-
-    if (DayUnits.day.contains(_unit)) {
-      day($D - num);
-    }
-    if (DayUnits.hour.contains(_unit)) {
-      hour($h - num);
-    }
-    if (DayUnits.minute.contains(_unit)) {
-      minute($m - num);
-    }
-    if (DayUnits.second.contains(_unit)) {
-      second($s - num);
-    }
-    if (DayUnits.millisecond.contains(_unit)) {
-      millisecond($ms - num);
+  DayDart subtract(int num, DayUnits unit) {
+    switch (unit) {
+      case DayUnits.y:
+        year($y - num);
+        break;
+      case DayUnits.M:
+        month($M - num);
+        break;
+      case DayUnits.D:
+        day($D - num);
+        break;
+      case DayUnits.h:
+        hour($h - num);
+        break;
+      case DayUnits.m:
+        minute($m - num);
+        break;
+      case DayUnits.s:
+        second($s - num);
+        break;
+      case DayUnits.ms:
+        millisecond($ms - num);
+        break;
     }
     return clone();
   }
@@ -286,104 +275,107 @@ class DayDart {
   }
 
   /// 这指示Day对象是否与另一个提供的date-time相同。
-  bool isSame(Object date, [String unit = 'ms']) {
+  bool isSame(Object date, [DayUnits unit = DayUnits.ms]) {
     DayDart d = DayDart(date);
-    String _unit = unit.toLowerCase();
-
-    if (DayUnits.year.contains(_unit)) {
-      return isSameYear(d);
+    bool valid = isSameMillisecond(d);
+    switch (unit) {
+      case DayUnits.y:
+        valid = isSameYear(d);
+        break;
+      case DayUnits.M:
+        valid = isSameMonth(d);
+        break;
+      case DayUnits.D:
+        valid = isSameDay(d);
+        break;
+      case DayUnits.h:
+        valid = isSameHour(d);
+        break;
+      case DayUnits.m:
+        valid = isSameMinute(d);
+        break;
+      case DayUnits.s:
+        valid = isSameSecond(d);
+        break;
+      case DayUnits.ms:
+        valid = isSameMillisecond(d);
+        break;
     }
-    if (DayUnits.month.contains(_unit)) {
-      return isSameMonth(d);
-    }
-    if (DayUnits.day.contains(_unit)) {
-      return isSameDay(d);
-    }
-    if (DayUnits.hour.contains(_unit)) {
-      return isSameHour(d);
-    }
-    if (DayUnits.minute.contains(_unit)) {
-      return isSameMinute(d);
-    }
-    if (DayUnits.second.contains(_unit)) {
-      return isSameSecond(d);
-    }
-    if (DayUnits.millisecond.contains(_unit)) {
-      return isSameMillisecond(d);
-    }
-    return _date == d.$d;
+    return valid;
   }
 
   ///  这指示Day对象是否在另一个提供的date-time之前。
-  bool isBefore(Object date, [String unit = 'ms']) {
+  bool isBefore(Object date, [DayUnits unit = DayUnits.ms]) {
     DayDart d = DayDart(date);
-    String _unit = unit.toLowerCase();
-
-    if (DayUnits.year.contains(_unit)) {
-      return isBeforeYear(d);
+    bool valid = isBeforeMillisecond(d);
+    switch (unit) {
+      case DayUnits.y:
+        valid = isBeforeYear(d);
+        break;
+      case DayUnits.M:
+        valid = isBeforeMonth(d);
+        break;
+      case DayUnits.D:
+        valid = isBeforeDay(d);
+        break;
+      case DayUnits.h:
+        valid = isBeforeHour(d);
+        break;
+      case DayUnits.m:
+        valid = isBeforeMinute(d);
+        break;
+      case DayUnits.s:
+        valid = isBeforeSecond(d);
+        break;
+      case DayUnits.ms:
+        valid = isBeforeMillisecond(d);
+        break;
     }
-    if (DayUnits.month.contains(_unit)) {
-      return isBeforeMonth(d);
-    }
-    if (DayUnits.day.contains(_unit)) {
-      return isBeforeDay(d);
-    }
-    if (DayUnits.hour.contains(_unit)) {
-      return isBeforeHour(d);
-    }
-    if (DayUnits.minute.contains(_unit)) {
-      return isBeforeMinute(d);
-    }
-    if (DayUnits.second.contains(_unit)) {
-      return isBeforeSecond(d);
-    }
-    if (DayUnits.millisecond.contains(_unit)) {
-      return isBeforeMillisecond(d);
-    }
-    return _date.isBefore(d.$d);
+    return valid;
   }
 
   ///  这指示Day对象是否在另一个提供的date-time之后。
-  bool isAfter(Object date, [String unit = 'ms']) {
+  bool isAfter(Object date, [DayUnits unit = DayUnits.ms]) {
     DayDart d = DayDart(date);
-    String _unit = unit.toLowerCase();
-
-    if (DayUnits.year.contains(_unit)) {
-      return isAfterYear(d);
+    bool valid = isAfterMillisecond(d);
+    switch (unit) {
+      case DayUnits.y:
+        valid = isAfterYear(d);
+        break;
+      case DayUnits.M:
+        valid = isAfterMonth(d);
+        break;
+      case DayUnits.D:
+        valid = isAfterDay(d);
+        break;
+      case DayUnits.h:
+        valid = isAfterHour(d);
+        break;
+      case DayUnits.m:
+        valid = isAfterMinute(d);
+        break;
+      case DayUnits.s:
+        valid = isAfterSecond(d);
+        break;
+      case DayUnits.ms:
+        valid = isAfterMillisecond(d);
+        break;
     }
-    if (DayUnits.month.contains(_unit)) {
-      return isAfterMonth(d);
-    }
-    if (DayUnits.day.contains(_unit)) {
-      return isAfterDay(d);
-    }
-    if (DayUnits.hour.contains(_unit)) {
-      return isAfterHour(d);
-    }
-    if (DayUnits.minute.contains(_unit)) {
-      return isAfterMinute(d);
-    }
-    if (DayUnits.second.contains(_unit)) {
-      return isAfterSecond(d);
-    }
-    if (DayUnits.millisecond.contains(_unit)) {
-      return isAfterMillisecond(d);
-    }
-    return _date.isAfter(d.$d);
+    return valid;
   }
 
   ///  相同或之前
-  bool isSameOrBefore(Object d, [String unit = 'ms']) {
+  bool isSameOrBefore(Object d, [DayUnits unit = DayUnits.ms]) {
     return isSame(d, unit) || isBefore(d, unit);
   }
 
   ///  相同或之后
-  bool isSameOrAfter(Object d, [String unit = 'ms']) {
+  bool isSameOrAfter(Object d, [DayUnits unit = DayUnits.ms]) {
     return isSame(d, unit) || isAfter(d, unit);
   }
 
   ///之间
-  bool isBetween(Object start, Object end, [String unit = 'ms']) {
+  bool isBetween(Object start, Object end, [DayUnits unit = DayUnits.ms]) {
     return isBefore(start, unit) && isAfter(end, unit);
   }
 
@@ -424,27 +416,27 @@ class DayDart {
   }
 
   bool isBeforeMonth(DayDart d) {
-    return isSameOrBefore(d, 'y') && $M < d.$M;
+    return isSameOrBefore(d, DayUnits.y) && $M < d.$M;
   }
 
   bool isBeforeDay(DayDart d) {
-    return isSameOrBefore(d, 'M') && $D < d.$D;
+    return isSameOrBefore(d, DayUnits.M) && $D < d.$D;
   }
 
   bool isBeforeHour(DayDart d) {
-    return isSameOrBefore(d, 'D') && $h < d.$h;
+    return isSameOrBefore(d, DayUnits.D) && $h < d.$h;
   }
 
   bool isBeforeMinute(DayDart d) {
-    return isSameOrBefore(d, 'h') && $m < d.$m;
+    return isSameOrBefore(d, DayUnits.h) && $m < d.$m;
   }
 
   bool isBeforeSecond(DayDart d) {
-    return isSameOrBefore(d, 'm') && $s < d.$s;
+    return isSameOrBefore(d, DayUnits.m) && $s < d.$s;
   }
 
   bool isBeforeMillisecond(DayDart d) {
-    return isSameOrBefore(d, 's') && $ms < d.$ms;
+    return isSameOrBefore(d, DayUnits.s) && $ms < d.$ms;
   }
 
   /// 之前 end
@@ -455,27 +447,27 @@ class DayDart {
   }
 
   bool isAfterMonth(DayDart d) {
-    return isSameOrAfter(d, 'y') && $M > d.$M;
+    return isSameOrAfter(d, DayUnits.y) && $M > d.$M;
   }
 
   bool isAfterDay(DayDart d) {
-    return isSameOrAfter(d, 'M') && $D > d.$D;
+    return isSameOrAfter(d, DayUnits.M) && $D > d.$D;
   }
 
   bool isAfterHour(DayDart d) {
-    return isSameOrAfter(d, 'D') && $h > d.$h;
+    return isSameOrAfter(d, DayUnits.D) && $h > d.$h;
   }
 
   bool isAfterMinute(DayDart d) {
-    return isSameOrAfter(d, 'h') && $m > d.$m;
+    return isSameOrAfter(d, DayUnits.h) && $m > d.$m;
   }
 
   bool isAfterSecond(DayDart d) {
-    return isSameOrAfter(d, 'm') && $s > d.$s;
+    return isSameOrAfter(d, DayUnits.m) && $s > d.$s;
   }
 
   bool isAfterMillisecond(DayDart d) {
-    return isSameOrAfter(d, 's') && $ms > d.$ms;
+    return isSameOrAfter(d, DayUnits.s) && $ms > d.$ms;
   }
 
   /// 之后 end
