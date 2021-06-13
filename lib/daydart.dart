@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 enum DayUnits { y, M, D, w, h, m, s, ms }
 
 class DayDart {
+
   static String locale = 'en_US';
 
   DateTime _date = DateTime.now();
