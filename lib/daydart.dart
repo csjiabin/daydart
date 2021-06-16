@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 enum DayUnits { y, M, D, w, h, m, s, ms }
 
 class DayDart {
-
   static String locale = 'en_US';
 
   DateTime _date = DateTime.now();
@@ -51,23 +50,41 @@ class DayDart {
     }
   }
 
-  DateTime get $d => _date;
+  DateTime get $d {
+    return _date;
+  }
 
-  int get $y => _date.year;
+  int get $y {
+    return _date.year;
+  }
 
-  int get $M => _date.month;
+  int get $M {
+    return _date.month;
+  }
 
-  int get $D => _date.day;
+  int get $D {
+    return _date.day;
+  }
 
-  int get $W => _date.weekday;
+  int get $W {
+    return _date.weekday;
+  }
 
-  int get $h => _date.hour;
+  int get $h {
+    return _date.hour;
+  }
 
-  int get $m => _date.minute;
+  int get $m {
+    return _date.minute;
+  }
 
-  int get $s => _date.second;
+  int get $s {
+    return _date.second;
+  }
 
-  int get $ms => _date.millisecond;
+  int get $ms {
+    return _date.millisecond;
+  }
 
   /// 获取或设置年份。
   int year([int? y]) {
@@ -266,9 +283,13 @@ class DayDart {
   }
 
   /// 检测当前 Date 对象是一个有效的 DateTime
-  bool isValid() => _date is DateTime;
+  bool isValid() {
+    return _date is DateTime;
+  }
 
-  static bool isDayDart(Object d) => d is DayDart;
+  static bool isDayDart(Object d) {
+    return d is DayDart;
+  }
 
   /// 是否闰年
   bool isLeapYear() {
@@ -474,27 +495,37 @@ class DayDart {
   /// 之后 end
 
   ///创建当前对象的一个克隆。
-  DayDart clone() => DayDart(_date);
+  DayDart clone() {
+    return DayDart(_date);
+  }
 
   ///  返回当前的 DateTime 对象
-  DateTime toDate() => _date;
+  DateTime toDate() {
+    return _date;
+  }
 
   /// 返回 ISO8601 格式的字符串
-  String toISOString() => _date.toIso8601String();
+  String toISOString() {
+    return _date.toIso8601String();
+  }
 
   /// 转List
-  List<int> toList() => [$y, $M, $D, $h, $m, $s, $ms];
+  List<int> toList() {
+    return [$y, $M, $D, $h, $m, $s, $ms];
+  }
 
   /// 转Map
-  Map<String, int> toMap() => {
-        'years': $y,
-        'months': $M,
-        'date': $D,
-        'hours': $h,
-        'minutes': $m,
-        'seconds': $s,
-        'milliseconds': $ms
-      };
+  Map<String, int> toMap() {
+    return {
+      'years': $y,
+      'months': $M,
+      'date': $D,
+      'hours': $h,
+      'minutes': $m,
+      'seconds': $s,
+      'milliseconds': $ms
+    };
+  }
 
   @override
   String toString() {

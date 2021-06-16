@@ -1,6 +1,6 @@
 name: daydart
-description: 具备 Day.js 一样 API 的时间处理库.
-version: 0.0.1
+description: With the same Day. JS API time processing library, convenient to do DateTime operation..
+version: 0.0.2
 #author: hjbmeow <hjbmeow@gmail.com>
 homepage: https://github.com/csjiabin/daydart
 repository: https://github.com/csjiabin/daydart
@@ -19,5 +19,3 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
-
-

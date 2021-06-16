@@ -1,8 +1,8 @@
-[English](https://github.com/csjiabin/daydart/blob/main/README.md) | [Chinese](https://github.com/csjiabin/daydart/blob/main/README.zh-CN.md)
+[English](https://github.com/csjiabin/daydart/blob/main/README.md) | [简体中文](https://github.com/csjiabin/daydart/blob/main/README.zh-CN.md)
 
 # DayDart
 
-Time-handling library with day.js API.
+具备 Day.js 一样 API 的时间处理库.
 
 ![https://img.shields.io/github/license/csjiabin/daydart.svg](https://img.shields.io/github/license/csjiabin/daydart.svg)
 ![https://img.shields.io/github/issues/csjiabin/daydart.svg](https://img.shields.io/github/issues/csjiabin/daydart.svg)
@@ -20,7 +20,7 @@ samples, guidance on mobile development, and a full API reference.
 
 ### Install
 
-Run this command under your project
+在项目下运行此命令
 
 ```sh
 dart pub add daydart
@@ -30,25 +30,25 @@ flutter pub add daydart
 
 ## API
 
-The `DayDart` object is immutable, and all calls will return a new `DayDart` object.
+`DayDart` 对象是不可变的，所有的调用都将返回一个新的 `DayDart` 对象。
 
-- [Parsing](#parsing)
-  - [Now Time](#now-time)
-  - [String](#string)
-  - [DateTime](#datetime)
-  - [Timestamp](#timestamp)
-  - [Clone](#clone)
-  - [Valid](#valid)
-- [Get](#get)
-  - [Year](#year)
-  - [Month](#month)
-  - [Quarter](#quarter)
-  - [Day](#day)
-  - [Week](#week)
-  - [Hour](#hour)
-  - [Minute](#minute)
-  - [Second](#second)
-  - [Millisecond](#millisecond)
+- [解析](#解析)
+  - [当前时间](#默认值)
+  - [时间字符串](#字符串)
+  - [DateTime 对象](#DateTime-对象)
+  - [时间戳](#时间戳)
+  - [克隆](#克隆)
+  - [验证](#验证)
+- [获取](#获取)
+  - [年](#年)
+  - [月](#月)
+  - [季度](#季度)
+  - [日](#日)
+  - [星期](#星期)
+  - [小时](#小时)
+  - [分钟](#分钟)
+  - [秒](#秒)
+  - [毫秒](#毫秒)
 - [操作](#操作)
   - [增加](#增加)
   - [减少](#减少)
@@ -71,11 +71,11 @@ The `DayDart` object is immutable, and all calls will return a new `DayDart` obj
 
 ---
 
-### Parsing
+### 解析
 
-Passing in the supported format in `DayDart`.
+在 `DayDart` 中传入支持的格式。
 
-#### Now Time
+#### 默认值
 
 不带参数调用 DayDart()将返回一个新的`DayDart`对象，其中包含当前日期和时间
 
@@ -83,314 +83,314 @@ Passing in the supported format in `DayDart`.
 DayDart now = DayDart()
 ```
 
-#### String
+#### 字符串
 
-Parses the given string in `ISO 8601` format and returns an instance of the `DayDart` object.
+以 `ISO 8601` 格式解析给定字符串并返回`DayDart`对象实例。
 
 ```dart
 DayDart('2018-04-04')
 ```
 
-#### DateTime
+#### DateTime 对象
 
-A DateTime object passed in.
+传入的一个 DateTime 对象。
 
 ```dart
 DayDart(DateTime.now());
 ```
 
-#### Timestamp
+#### 时间戳(毫秒)
 
-Create `DayDart` with an integer value of milliseconds
+通过一个毫秒的整数值来创建`DayDart`
 
 ```dart
 DayDart(1623484401193);
 ```
 
-#### Clone
+#### 克隆
 
-All `DayDart` objects are immutable. Dayart#clone can still create a clone of the current object if needed.
+所有 DayDart 对象是不可变的。如果需要的话，DayDart#clone 仍然可以创建当前对象的一个克隆。
 
 ```dart
 DayDart a = DayDart()
 DayDart b = a.clone()
 ```
 
-Calling `DayDart()` on the `DayDart` object also clones it.
+在`DayDart`对象上调用 DayDart()也会克隆它。
 
 ```dart
 DayDart a = DayDart()
 DayDart b = DayDart(a)
 ```
 
-#### Valid
+#### 验证
 
-Returns a Boolean indicating whether the `DayDart` object contains an expiration date.
+返回一个布尔值，指示`DayDart`对象是否包含有效日期。
 
 ```dart
 DayDart().isValid()
 ```
 
-### Get
+### 获取
 
-#### Year
+#### 年
 
-Gets or sets the year.
+获取或设置年份。
 
 ```dart
 DayDart().year();
 DayDart().year(2000);
 ```
 
-#### Month
+#### 月
 
-Gets or sets the month.
+获取或设置月份。
 
-Accept numbers from 1 to 12. If it exceeds that range, it will continue until the end of the year.
+接受 1 到 12 的数字。如果超过这个范围，将一直持续到年底。
 
 ```dart
 DayDart().month();
 DayDart().month(1);
 ```
 
-#### Quarter
+#### 季度
 
-Gets or sets the quarter.
+获取或设置季度。
 
 ```dart
 DayDart('2010-04-01').quarter() // 2
 DayDart('2010-04-01').quarter(2)
 ```
 
-#### Day
+#### 日
 
-Gets or sets the date of the month.
+获取或设置月份的日期。
 
-Accept numbers from 1 to 31. If this range is exceeded, it will last until the day.
+接受从 1 到 31 的数字。如果超过这个范围，将持续到日。
 
 ```dart
 DayDart().day()
 DayDart().day(1)
 ```
 
-#### Week
+#### 星期
 
-For weeks
+获取星期
 
 ```dart
 DayDart().week()
 ```
 
-#### Hour
+#### 小时
 
-Gets or sets the hour.
+获取或设置小时。
 
-Accept the numbers from 0 to 59. If this range is exceeded, it will last until the day.
+接受 0 到 59 的数字。如果超过这个范围，将持续到日。
 
 ```dart
 DayDart().hour()
 DayDart().hour(12)
 ```
 
-#### Minute
+#### 分钟
 
-Gets or sets the minutes.
+获取或设置分钟。
 
-Accept the numbers from 0 to 59. If this range is exceeded, it will last until hours
+接受 0 到 59 的数字。如果超过这个范围，将持续到小时
 
 ```dart
 DayDart().minute()
 DayDart().minute(12)
 ```
 
-#### Second
+#### 秒
 
-Gets or sets the seconds.
+获取或设置秒。
 
-Accept the numbers from 0 to 59. If this range is exceeded, it will last up to minutes.
+接受 0 到 59 的数字。如果超过这个范围，将持续到分钟。
 
 ```dart
 DayDart().second()
 DayDart().second(12)
 ```
 
-#### Millisecond
+#### 毫秒
 
-Gets or sets milliseconds.
+获取或设置毫秒。
 
-Accepts numbers from 0 to 999. If this range is exceeded, it will last up to seconds.
+接受 0 到 999 的数字。如果超过这个范围，将持续到秒。
 
 ```dart
 DayDart().millisecond()
 DayDart().millisecond(12)
 ```
 
-### Operation
+### 操作
 
-Once you have a `DayDart` object, you might want to manipulate it in some way.
+一旦有了 DayDart 对象，您可能希望以某种方式对其进行操作。
 
-DayDart supports method links like this:
+DayDart 支持这样的方法链接:
 
 ```dart
 DayDart('2019-01-25')..add(1, DayUnits.D)..subtract(1, DayUnits.y)..year(2009)..toString()
 ```
 
-List of all available units
+所有可用单位列表
 
-| uni | desc        |
-| --- | ----------- |
-| D   | day (1-31)  |
-| M   | month(1-12) |
-| y   | year        |
-| h   | hour        |
-| m   | minutes     |
-| s   | seconds     |
-| ms  | millisecond |
+| 单位 | 描述        |
+| ---- | ----------- |
+| D    | 天(1 到 31) |
+| M    | 月份(1-12)  |
+| y    | 年          |
+| h    | 小时        |
+| m    | 分钟        |
+| s    | 秒          |
+| ms   | 毫秒        |
 
-#### Add
+#### 增加
 
-Returns a cloned `DayDart` object, adding the specified time.
+返回一个克隆的 `DayDart` 对象，并添加指定的时间。
 
 ```dart
 DayDart().add(7, DayUnits.D)
 ```
 
-#### Subtract
+#### 减少
 
-Returns the cloned 'DayDart' object, subtracting the specified time.
+返回克隆的`DayDart`对象，并减去指定的时间。
 
 ```dart
 DayDart().subtract(7, DayUnits.D)
 ```
 
-### Query
+### 查询
 
-List of all available units
+所有可用单位列表
 
-| unit | desc        |
-| ---- | ----------- |
-| D    | day         |
-| M    | month       |
-| y    | year        |
-| h    | hour        |
-| m    | minutes     |
-| s    | seconds     |
-| ms   | millisecond |
+| 单位 | 描述 |
+| ---- | ---- |
+| D    | 天   |
+| M    | 月份 |
+| y    | 年   |
+| h    | 小时 |
+| m    | 分钟 |
+| s    | 秒   |
+| ms   | 毫秒 |
 
-#### isBefore
+#### 是否之前
 
-This indicates whether the `DayDart` object is before another supplied date-time.
+这指示`DayDart`对象是否在另一个提供的 date-time 之前。
 
 ```dart
 DayDart().isBefore(DayDart('2011-01-01')) // default milliseconds
 ```
 
-If you want to limit granularity to units rather than milliseconds, pass it as a second argument.
+如果希望将粒度限制为单位而不是毫秒，则将其作为第二个参数传递。
 
 ```dart
 DayDart().isBefore('2011-01-01', DayUnits.y)
 ```
 
-#### isSame
+#### 是否相同
 
-This indicates whether the `DayDart` object is the same as the date-time provided by another.
+这指示`DayDart`对象是否与另一个提供的 date-time 相同。
 
 ```dart
 DayDart().isSame(DayDart('2011-01-01')) // default milliseconds
 ```
 
-If you want to limit granularity to units rather than milliseconds, pass it as a second argument.
+如果希望将粒度限制为单位而不是毫秒，则将其作为第二个参数传递。
 
 ```dart
 DayDart().isSame('2011-01-01', DayUnits.y)
 ```
 
-#### isAfter
+#### 是否之后
 
-This indicates whether the `DayDart` object is after another supplied date-time.
+这指示`DayDart`对象是否在另一个提供的 date-time 之后。
 
 ```dart
 DayDart().isAfter(DayDart('2011-01-01')) // default milliseconds
 ```
 
-If you want to limit granularity to units rather than milliseconds, pass it as a second argument.。
+如果希望将粒度限制为单位而不是毫秒，则将其作为第二个参数传递。
 
 ```dart
 DayDart().isAfter('2011-01-01', DayUnits.y)
 ```
 
-#### isSameOrBefore
+#### 是否相同或之前
 
-This indicates whether the `DayDart` object is the same or before another provided date-time.
+这表明`DayDart`对象是相同的还是在另一个提供的 date-time 之前。
 
 ```dart
 DayDart().isSameOrBefore(DayDart('2011-01-01')) // default milliseconds
 ```
 
-If you want to limit granularity to units rather than milliseconds, pass it as a second argument.
+如果希望将粒度限制为单位而不是毫秒，则将其作为第二个参数传递。
 
 ```dart
 DayDart().isSameOrBefore('2011-01-01', DayUnits.y)
 ```
 
-#### isSameOrAfter
+#### 是否相同或之后
 
-This indicates whether the `DayDart` object is the same or after another supplied date-time.
+这指示`DayDart`对象是相同的还是在另一个提供的 date-time 之后。
 
 ```dart
 DayDart().isSameOrAfter(DayDart('2011-01-01')) // default milliseconds
 ```
 
-If you want to limit granularity to units rather than milliseconds, pass it as a second argument.
+如果希望将粒度限制为单位而不是毫秒，则将其作为第二个参数传递。
 
 ```dart
 DayDart().isSameOrAfter('2011-01-01', DayUnits.y)
 ```
 
-#### isBetween
+#### 是否之间
 
-This indicates whether the `DayDart` object is between the other two supplied date-times.
+这指示`DayDart`对象是否位于另外两个提供的 date-time 之间。
 
 ```dart
 DayDart('2010-10-20').isBetween('2010-10-19', DayDart('2010-10-25'))// default milliseconds
 ```
 
-If you want to limit granularity to units rather than milliseconds, pass it as a third parameter.
+如果希望将粒度限制为单位而不是毫秒，则将其作为第三个参数传递。
 
 ```dart
 DayDart().isBetween('2010-10-19', '2010-10-25', DayUnits.y)
 ```
 
-#### isDayDart
+#### 判断是否为 DayDart
 
-This indicates whether the variable is a `DayDart` object.
+这指示变量是否为 `DayDart` 对象。
 
 ```dart
 DayDart.isDayDart(DayDart()) // true
 DayDart.isDayDart(DateTime.now()) // false
 ```
 
-You can also use the `is` operator:
+也可以使用 `is` 操作符:
 
 ```dart
 DayDart() is DayDart // true
 ```
 
-#### isLeapYear
+#### 是否闰年
 
-This indicates whether the year of the `DayDart` object is a leap year.
+这表明 `DayDart` 对象的年份是否为闰年。
 
 ```dart
 DayDart('2000-01-01').isLeapYear() // true
 ```
 
-### Display
+### 显示
 
-#### Format
+#### 格式化
 
-Gets the formatted date based on the passed token string.
+根据传入的令牌字符串获取格式化的日期。
 
-To escape characters, enclose them in square brackets (for example, 'MM').
+要对字符进行转义，请将它们括在方括号中(例如'MM')。
 
 ```dart
 DayDart().format()
@@ -398,9 +398,9 @@ DayDart().format()
 DayDart('2019-01-25').format('dd/MM/yyyy') // '25/01/2019'
 ```
 
-A list of all available parse tags
+所有可用解析标记的列表
 
-| arg        | desc                        |
+| 标识       | 描述                        |
 | ---------- | --------------------------- |
 | d          | DAY                         |
 | E          | ABBR_WEEKDAY                |
@@ -440,30 +440,30 @@ A list of all available parse tags
 | ms         | MINUTE_SECOND               |
 | s          | SECOND                      |
 
-#### To DateTime
+#### 转 DateTime 对象
 
-To get a copy of the local date object parsed from the 'dayDart' object, use dayDart #toDate.
+要获得从`DayDart`对象解析的本地日期对象的副本，请使用 DayDart#toDate。
 
 ```dart
 DayDart('2019-01-25').toDate()
 ```
 
-#### To List
+#### 转 List
 
 ```dart
-DayDart('2019-01-25').toList() // [ 2019, 0, 25, 0, 0, 0, 0 ]
+DayDart('2019-01-25').toList() // [ 2019, 1, 25, 0, 0, 0, 0 ]
 ```
 
-#### To Map
+#### 转 Map
 
-Returns `Map` with date property.
+返回具有日期属性的`Map`。
 
 ```dart
 DayDart('2019-01-25').toMap()
 /*
 {
   years: 2019,
-  months: 0,
+  months: 1,
   date: 25,
   hours: 0,
   minutes: 0,
@@ -473,17 +473,17 @@ DayDart('2019-01-25').toMap()
 */
 ```
 
-#### To IOS 8601 String
+#### 转 IOS 8601 字符串
 
-Formatted as an ISO 8601 string.
+格式化为 ISO 8601 字符串。
 
 ```dart
 DayDart('2019-01-25').toISOString() // 2019-01-25T00:00:00.000
 ```
 
-#### To String
+#### 转字符串
 
-Returns a string representation of the date.
+返回日期的字符串表示形式。
 
 ```dart
 DayDart('2019-01-25').toString() // 2019-01-25 00:00:00.000
