@@ -515,3 +515,9 @@ Returns a string representation of the date.
 ```dart
 DayDart('2019-01-25').toString() // 2019-01-25 00:00:00.000
 ```
+
+### Stargazers over time
+
+This project will be updated continuously. Your valuable comments are welcome.
+
+[Issues](https://github.com/csjiabin/daydart/issues)

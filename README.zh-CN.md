@@ -515,3 +515,9 @@ DayDart('2019-01-25').toISOString() // 2019-01-25T00:00:00.000
 ```dart
 DayDart('2019-01-25').toString() // 2019-01-25 00:00:00.000
 ```
+
+### 结尾
+
+本项目将会持续更新，欢迎大家来提出宝贵的意见。
+
+[Issues](https://github.com/csjiabin/daydart/issues)
