@@ -1,5 +1,7 @@
 name: daydart
-description: With the same Day. JS API time processing library, convenient to do DateTime operation..
+description: With the same Day. JS API time processing library, convenient to do DateTime operation.
+version: 0.0.5
+homepage: https://github.com/csjiabin/daydart
 repository: https://github.com/csjiabin/daydart
 environment:
   sdk: ">=2.12.0 <3.0.0"

@@ -1,5 +1,6 @@
 library daydart;
 
+import 'dart:math' as math;
 import 'package:intl/intl.dart';
 
 enum DayUnits { y, M, D, w, h, m, s, ms }
@@ -31,6 +32,10 @@ class DayDart {
         }
         return;
       }
+      // if(date is List){
+      //   _date = DateTime();
+      //   return;
+      // }
       if (date is DayDart) {
         _date = date.$d;
         return;
@@ -112,6 +117,17 @@ class DayDart {
     return $D;
   }
 
+  /// 获取月份总天数
+  int days() {
+    return DateTime($y, $M + 1, 0).day;
+  }
+
+  /// 获取日期到年初总天数
+  int dayOfYear() {
+    Duration _diff = diff(DateTime($y, 1, 1));
+    return _diff.inDays + 1;
+  }
+
   /// 获取星期几。
   /// 接受0(星期日)到6(星期六)的数字。如果超过这个范围，将持续到几周。
   int week([int? d]) {
@@ -119,6 +135,11 @@ class DayDart {
       day((d - $W) * 7);
     }
     return $W;
+  }
+
+  // 获取日期到年初总星期数
+  int weeks() {
+    return (dayOfYear() / 7).ceil();
   }
 
   ///  获取或设置季度。
@@ -277,8 +298,9 @@ class DayDart {
     return DateFormat(pattern, locale).format(_date);
   }
 
-  Duration diff(DayDart d) {
-    Duration _diff = _date.difference(d.$d);
+  Duration diff(Object d) {
+    DayDart date = DayDart(d);
+    Duration _diff = _date.difference(date.$d);
     return _diff;
   }
 

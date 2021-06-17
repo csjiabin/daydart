@@ -38,7 +38,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  DayDart dayDart = DayDart('2020-01-02 23:22:11.888');
+  DayDart dayDart = DayDart('2021-02-02 23:22:11.888');
   int _counter = 0;
 
   @override
@@ -46,12 +46,13 @@ class _MyHomePageState extends State<MyHomePage> {
     // TODO: implement initState
     super.initState();
     // print(dayDart.isLeapYear());
-    print(dayDart.add(5, DayUnits.ms));
-    // print(dayDart.format("Hms"));
-    print(dayDart.toString());
+    // print(dayDart.add(5, DayUnits.ms));
+    // // print(dayDart.format("Hms"));
+    // print(dayDart.toString());
   }
 
   void _incrementCounter() {
+    print(dayDart.dayOfYear());
     _counter++;
     setState(() {});
   }

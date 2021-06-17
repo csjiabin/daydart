@@ -44,6 +44,9 @@ The `DayDart` object is immutable, and all calls will return a new `DayDart` obj
   - [Month](#month)
   - [Quarter](#quarter)
   - [Day](#day)
+  - [Days](#days)
+  - [DayOfYear](#dayofyear)
+  - [Weeks](#weeks)
   - [Week](#week)
   - [Hour](#hour)
   - [Minute](#minute)
@@ -173,9 +176,33 @@ DayDart().day()
 DayDart().day(1)
 ```
 
+#### Days
+
+Gets the total number of days of the month
+
+```dart
+DayDart().days()
+```
+
+#### DayOfYear
+
+Total number of days from date to year
+
+```dart
+DayDart().dayOfYear()
+```
+
+#### Weeks
+
+Gets the total number of weeks from the date to the beginning of the year
+
+```dart
+DayDart().weeks()
+```
+
 #### Week
 
-For weeks
+For week
 
 ```dart
 DayDart().week()
