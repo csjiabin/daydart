@@ -38,7 +38,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  DayDart dayDart = DayDart('2022-02-02');
+  DayDart dayDart = DayDart();
   int _counter = 0;
 
   @override

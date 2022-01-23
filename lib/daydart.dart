@@ -154,7 +154,7 @@ class DayDart {
   }
 
   /// 获取或设置小时。
-  /// 接受0到59的数字。如果超过这个范围，将持续到日。
+  /// 接受0到23的数字。如果超过这个范围，将持续到日。
   int hour([int? h]) {
     if (h != null) {
       _date = DateTime($y, $M, $D, h, $m, $s, $ms);
@@ -520,7 +520,8 @@ class DayDart {
   /// 之后 end
 
   List<DayDart> daysInMonth([Object? date]) {
-    DayDart first = firstDayOfMonth(date);
+    DayDart first = firstDayOfMonth(date)..hour(12);
+    print(first);
     int daysBefore = first.week();
     if (daysBefore == 0) {
       daysBefore = 7;
@@ -528,7 +529,12 @@ class DayDart {
     DayDart firstToDisplay = first.subtract(daysBefore, DayUnits.D);
     DayDart last = lastDayOfMonth(date);
     int daysAfter = 7 - last.week();
+    // If the last day is sunday (7) the entire week must be rendered
+    // if (daysAfter == 0) {
+    //   daysAfter = 7;
+    // }
     DayDart lastToDisplay = last.add(daysAfter, DayUnits.D);
+
     return daysInRange(firstToDisplay, lastToDisplay);
   }
 
@@ -552,7 +558,7 @@ class DayDart {
   List<DayDart> daysInRange(DayDart start, DayDart end) {
     List<DayDart> list = [];
     var _diff = end.diff(start).inDays;
-    for (int i = 0; i < _diff; i++) {
+    for (int i = 0; i <= _diff; i++) {
       list.add(start.add(1, DayUnits.D));
     }
     return list;
