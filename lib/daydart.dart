@@ -55,6 +55,9 @@ class DayDart {
     }
   }
 
+  List<String> get weekdays =>
+      ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
   DateTime get $d {
     return _date;
   }
@@ -187,7 +190,7 @@ class DayDart {
   }
 
   ///  返回DayDart对象，并添加指定的时间。
-  DayDart add(int num, DayUnits unit) {
+  DayDart add(int num, [DayUnits unit = DayUnits.D]) {
     switch (unit) {
       case DayUnits.y:
         year($y + num);
@@ -215,7 +218,7 @@ class DayDart {
   }
 
   ///  返回DayDart对象，并减去指定的时间。
-  DayDart subtract(int num, DayUnits unit) {
+  DayDart subtract(int num, [DayUnits unit = DayUnits.D]) {
     switch (unit) {
       case DayUnits.y:
         year($y - num);
@@ -516,9 +519,48 @@ class DayDart {
 
   /// 之后 end
 
+  List<DayDart> daysInMonth([Object? date]) {
+    DayDart first = firstDayOfMonth(date);
+    int daysBefore = first.week();
+    if (daysBefore == 0) {
+      daysBefore = 7;
+    }
+    DayDart firstToDisplay = first.subtract(daysBefore, DayUnits.D);
+    DayDart last = lastDayOfMonth(date);
+    int daysAfter = 7 - last.week();
+    DayDart lastToDisplay = last.add(daysAfter, DayUnits.D);
+    return daysInRange(firstToDisplay, lastToDisplay);
+  }
+
+  DayDart firstDayOfMonth([Object? date]) {
+    return clone(date)..day(1);
+  }
+
+  /// The last day of a given month
+  DayDart lastDayOfMonth([Object? date]) {
+    DayDart d = clone(date);
+    var beginningNextMonth = (d.month() < 12)
+        ? clone(DateTime(d.year(), d.month() + 1, 1))
+        : clone(DateTime(d.year() + 1, 1, 1));
+    return beginningNextMonth.subtract(1, DayUnits.D);
+  }
+
+  /// Returns a [DateTime] for each day the given range.
+  ///
+  /// [start] inclusive
+  /// [end] exclusive
+  List<DayDart> daysInRange(DayDart start, DayDart end) {
+    List<DayDart> list = [];
+    var _diff = end.diff(start).inDays;
+    for (int i = 0; i < _diff; i++) {
+      list.add(start.add(1, DayUnits.D));
+    }
+    return list;
+  }
+
   ///创建当前对象的一个克隆。
-  DayDart clone() {
-    return DayDart(_date);
+  DayDart clone([Object? date]) {
+    return DayDart(date ?? _date);
   }
 
   ///  返回当前的 DateTime 对象

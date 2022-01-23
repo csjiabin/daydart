@@ -56,6 +56,7 @@ flutter pub add daydart
   - [增加](#增加)
   - [减少](#减少)
 - [查询](#查询)
+  - [daysInMonth](#daysinmonth)
   - [是否之前](#是否之前)
   - [是否相同](#是否相同)
   - [是否之后](#是否之后)
@@ -303,6 +304,14 @@ DayDart().subtract(7, DayUnits.D)
 | m    | 分钟 |
 | s    | 秒   |
 | ms   | 毫秒 |
+
+#### daysInMonth
+
+一个月的天数列表
+
+```dart
+DayDart().daysInMonth(DayDart('2011-01-01')) // default milliseconds
+```
 
 #### 是否之前
 

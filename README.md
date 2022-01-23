@@ -56,6 +56,7 @@ The `DayDart` object is immutable, and all calls will return a new `DayDart` obj
   - [Add](#add)
   - [Subtract](#subtract)
 - [Query](#query)
+  - [daysInMonth](#daysinmonth)
   - [isBefore](#isbefore)
   - [isSame](#issame)
   - [isAfter](#isafter)
@@ -303,6 +304,14 @@ List of all available units
 | m    | minutes     |
 | s    | seconds     |
 | ms   | millisecond |
+
+#### daysInMonth
+
+The list of days in a given month
+
+```dart
+DayDart().daysInMonth(DayDart('2011-01-01')) // default milliseconds
+```
 
 #### isBefore
 
