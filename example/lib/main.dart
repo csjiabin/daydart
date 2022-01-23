@@ -38,7 +38,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  DayDart dayDart = DayDart();
+  DayDart dayDart = DayDart('2022-01-25');
   int _counter = 0;
 
   @override
@@ -52,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _incrementCounter() {
-    print(dayDart.daysInMonth());
+    print(dayDart.daysInWeek());
     print(dayDart.dayOfYear());
     _counter++;
     setState(() {});

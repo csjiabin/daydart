@@ -520,8 +520,7 @@ class DayDart {
   /// 之后 end
 
   List<DayDart> daysInMonth([Object? date]) {
-    DayDart first = firstDayOfMonth(date)..hour(12);
-    print(first);
+    DayDart first = firstDayOfMonth(date);
     int daysBefore = first.week();
     if (daysBefore == 0) {
       daysBefore = 7;
@@ -538,17 +537,56 @@ class DayDart {
     return daysInRange(firstToDisplay, lastToDisplay);
   }
 
+  List<DayDart> daysInWeek([Object? date]) {
+    DayDart firstToDisplay = firstDayOfWeek(date);
+    DayDart lastToDisplay = lastDayOfWeek(date);
+    return daysInRange(firstToDisplay, lastToDisplay);
+  }
+
   DayDart firstDayOfMonth([Object? date]) {
-    return clone(date)..day(1);
+    return clone(date)
+      ..day(1)
+      ..hour(12);
   }
 
   /// The last day of a given month
   DayDart lastDayOfMonth([Object? date]) {
-    DayDart d = clone(date);
+    DayDart d = clone(date)..hour(12);
     var beginningNextMonth = (d.month() < 12)
         ? clone(DateTime(d.year(), d.month() + 1, 1))
         : clone(DateTime(d.year() + 1, 1, 1));
     return beginningNextMonth.subtract(1, DayUnits.D);
+  }
+
+  DayDart firstDayOfWeek([Object? date]) {
+    /// Handle Daylight Savings by setting hour to 12:00 Noon
+    /// rather than the default of Midnight
+    DayDart d = clone(date)..hour(12);
+
+    /// Weekday is on a 1-7 scale Monday - Sunday,
+    /// This Calendar works from Sunday - Monday
+    var decreaseNum = d.week() % 7;
+    if (decreaseNum == 0) {
+      decreaseNum = 7;
+    }
+    print('decreaseNum->$decreaseNum');
+    return d.subtract(decreaseNum, DayUnits.D);
+  }
+
+  DayDart lastDayOfWeek([Object? date]) {
+    /// Handle Daylight Savings by setting hour to 12:00 Noon
+    /// rather than the default of Midnight
+    DayDart d = clone(date)..hour(12);
+
+    /// Weekday is on a 1-7 scale Monday - Sunday,
+    /// This Calendar's Week starts on Sunday
+    var increaseNum = d.week() % 7;
+    if (increaseNum == 0) {
+      increaseNum = 8;
+    }
+    print('increaseNum->$increaseNum');
+
+    return d.add(7 - increaseNum, DayUnits.D);
   }
 
   /// Returns a [DateTime] for each day the given range.
