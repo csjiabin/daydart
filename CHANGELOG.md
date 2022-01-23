@@ -1,3 +1,7 @@
+## 0.0.6
+
+- TODO: Add `daysInMonth`、`daysInWeek`、`daysInRange` function.
+
 ## 0.0.5
 
 - TODO: Add `days`、`dayOfYear`、`weeks` function.

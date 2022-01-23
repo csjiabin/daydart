@@ -569,7 +569,6 @@ class DayDart {
     if (decreaseNum == 0) {
       decreaseNum = 7;
     }
-    print('decreaseNum->$decreaseNum');
     return d.subtract(decreaseNum, DayUnits.D);
   }
 
@@ -584,7 +583,6 @@ class DayDart {
     if (increaseNum == 0) {
       increaseNum = 8;
     }
-    print('increaseNum->$increaseNum');
 
     return d.add(7 - increaseNum, DayUnits.D);
   }
